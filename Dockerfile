@@ -9,5 +9,6 @@ RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb
   && apt-get install -y --no-install-recommends \
       apt-transport-https \
       azure-cli=$AZ_VERSION \
+      unzip \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /etc/apt/sources.list.d/*
