@@ -8,9 +8,11 @@ RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb
   && curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-      apt-transport-https \
-      azure-cli=$AZ_VERSION \
-      powershell \
-      unzip \
+       apt-transport-https \
+       azure-cli=$AZ_VERSION \
+       powershell \
+       unzip \
+  && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+  && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /etc/apt/sources.list.d/*
