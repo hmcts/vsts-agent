@@ -1,8 +1,9 @@
 FROM microsoft/vsts-agent:ubuntu-16.04
 
-ENV AZ_VERSION 2.0.59-1~xenial
+ENV AZ_VERSION 2.0.62-1~xenial
 
-RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+RUN rm -rf /var/lib/apt/lists/* \
+  && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
   | tee /etc/apt/sources.list.d/azure-cli.list \
   && curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/microsoft.list \
   && curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
