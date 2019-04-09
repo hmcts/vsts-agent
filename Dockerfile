@@ -49,3 +49,4 @@ RUN apt-key adv --keyserver packages.microsoft.com --recv-keys EB3E94ADBE1229CF 
  && apt-get install -y --no-install-recommends azcopy \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /etc/apt/sources.list.d/*
+ 
