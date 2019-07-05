@@ -15,6 +15,7 @@ RUN apt-get update \
         libcurl3 \
         libicu55 \
         lsb-release \
+	      make \
         apt-transport-https \
         software-properties-common \
         apt-utils
