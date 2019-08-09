@@ -12,4 +12,5 @@ az acr task create \
     --context https://github.com/$GIT_USER/$PROJECT_NAME.git \
     --branch master \
     --file Dockerfile \
-    --git-access-token $GIT_PAT
+    --git-access-token $GIT_PAT \
+    --subscription DCD-CNP-PROD
