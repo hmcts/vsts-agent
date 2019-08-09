@@ -1,9 +1,9 @@
 #!/bin/sh
 
-ACR_NAME=hmcts  # The name of your Azure container registry
+ACR_NAME=hmctspublic  # The name of your Azure container registry
 PROJECT_NAME=vsts-agent
 GIT_USER=hmcts  # Your GitHub user account name
-GIT_PAT=
+GIT_PAT=$(az keyvault secret show --vault-name infra-vault-prod --name hmcts-github-apikey --query value -o tsv)
 
 az acr task create \
     --registry $ACR_NAME \
