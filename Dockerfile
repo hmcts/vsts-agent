@@ -56,15 +56,31 @@ RUN apt-add-repository -y ppa:openjdk-r/ppa \
   && apt-get install -y --no-install-recommends openjdk-8-jdk \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
 ENV JAVA_HOME_8_X64=/usr/lib/jvm/java-8-openjdk-amd64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 
 # Install Docker
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - > /dev/null \
   && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
   && apt-get update \
   && apt-get install -y docker-ce
+
+# Install SQLPackage
+RUN mkdir /opt/sqlpackage \
+    && wget -O sqlpackage-linux.zip ${SQLPACKAGE_URL} \
+    && unzip sqlpackage-linux.zip -d /opt/sqlpackage \
+    && chmod a+x /opt/sqlpackage/sqlpackage \
+    && ln -s /opt/sqlpackage/sqlpackage /usr/bin/sqlpackage
+
+# Install MSSQL Tools
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - > /dev/null \
+    && curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/msprod.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install mssql-tools unixodbc-dev \
+    && ln -s /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd \
+    && ln -s /opt/mssql-tools/bin/bcp /usr/bin/bcp
 
 WORKDIR /azp
 
