@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# Create env variable to support PAT retrieval from key vault mount
+if [ "/kvmnt/azpToken" ]; then
+  export AZP_TOKEN=$(cat /mnt/kv/azpToken)
+  exit 1
+fi
+
 if [ -z "$AZP_URL" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
   exit 1
