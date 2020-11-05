@@ -28,7 +28,7 @@ RUN apt-get update \
         wget \
         unzip \
         zip \
-        gnupg \
+        gnupg
 
 ENV AZ_VERSION 2.13.0-1~bionic
 
