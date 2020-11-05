@@ -62,10 +62,10 @@ ENV JAVA_HOME_8_X64=/usr/lib/jvm/java-8-openjdk-amd64 \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 
 # Install Docker
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \	RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - > /dev/null \
-  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \	  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
-  && apt-get update \	  && apt-get update \
-  && apt-get install -y docker-ce	  && apt-get install -y docker-ce
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - > /dev/null \
+  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+  && apt-get update \
+  && apt-get install -y docker-ce
 
 # Install SQLPackage
 RUN mkdir /opt/sqlpackage \
