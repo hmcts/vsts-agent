@@ -3,7 +3,7 @@ set -e
 
 # Create env variable to support PAT retrieval from key vault mount
 if [ "/kvmnt/azpToken" ]; then
-  export AZP_TOKEN=$(cat /mnt/kv/azpToken)
+  export AZP_TOKEN=$(cat /kvmnt/azpToken)
   exit 1
 fi
 
