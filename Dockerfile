@@ -53,12 +53,12 @@ RUN rm -rf /var/lib/apt/lists/* \
 # Install Java OpenJDKs
 RUN apt-add-repository -y ppa:openjdk-r/ppa \
   && apt-get update \
-  && apt-get install -y --no-install-recommends openjdk-8-jdk \
+  && apt-get install -y --no-install-recommends openjdk-11-jdk \
   && rm -rf /var/lib/apt/lists/* \
-  && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+  && update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
-ENV JAVA_HOME_8_X64=/usr/lib/jvm/java-8-openjdk-amd64 \
-    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
+ENV JAVA_HOME_11_X64=/usr/lib/jvm/java-11-openjdk-amd64 \
+    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 
 # Install Docker
