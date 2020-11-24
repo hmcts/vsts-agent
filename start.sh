@@ -2,8 +2,8 @@
 set -e
 
 # Create env variable to support PAT retrieval from key vault mount
-if [ -f "/kvmnt/azure-devops-agent-token" ]; then
-  export AZP_TOKEN=$(cat /kvmnt/azure-devops-agent-token)  
+if [ -f "/kvmnt/azpToken" ]; then
+  export AZP_TOKEN=$(cat /kvmnt/azpToken)  
 fi
 
 if [ -z "$AZP_URL" ]; then
