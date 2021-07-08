@@ -9,26 +9,27 @@ RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 ARG SQLPACKAGE_URL=https://go.microsoft.com/fwlink/?linkid=2143497
 
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        jq \
-        git \
-        iputils-ping \
-        libcurl4 \
-        libicu60 \
-        libunwind8 \
-        lsb-release \
-	      make \
-        netcat \
-        libssl1.0 \
-        apt-transport-https \
-        software-properties-common \
-        apt-utils \
-        wget \
-        unzip \
-        zip \
-        gnupg
+  && apt-get install -y --no-install-recommends \
+  ca-certificates \
+  curl \
+  jq \
+  git \
+  iputils-ping \
+  libcurl4 \
+  libicu60 \
+  libunwind8 \
+  lsb-release \
+  make \
+  netcat \
+  libssl1.0 \
+  apt-transport-https \
+  software-properties-common \
+  apt-utils \
+  wget \
+  unzip \
+  zip \
+  gnupg \
+  python3-venv
 
 ENV AZ_VERSION 2.13.0-1~bionic
 
@@ -44,7 +45,7 @@ RUN rm -rf /var/lib/apt/lists/* \
   && curl -sL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - > /dev/null \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-       azure-cli=$AZ_VERSION \
+  azure-cli=$AZ_VERSION \
   && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/* \
@@ -58,8 +59,8 @@ RUN apt-add-repository -y ppa:openjdk-r/ppa \
   && update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
 ENV JAVA_HOME_11_X64=/usr/lib/jvm/java-11-openjdk-amd64 \
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
-    JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
+  JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
+  JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 
 # Install Docker
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - > /dev/null \
@@ -69,18 +70,18 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - > /d
 
 # Install SQLPackage
 RUN mkdir /opt/sqlpackage \
-    && wget -O sqlpackage-linux.zip ${SQLPACKAGE_URL} \
-    && unzip sqlpackage-linux.zip -d /opt/sqlpackage \
-    && chmod a+x /opt/sqlpackage/sqlpackage \
-    && ln -s /opt/sqlpackage/sqlpackage /usr/bin/sqlpackage
+  && wget -O sqlpackage-linux.zip ${SQLPACKAGE_URL} \
+  && unzip sqlpackage-linux.zip -d /opt/sqlpackage \
+  && chmod a+x /opt/sqlpackage/sqlpackage \
+  && ln -s /opt/sqlpackage/sqlpackage /usr/bin/sqlpackage
 
 # Install MSSQL Tools
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - > /dev/null \
-    && curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/msprod.list \
-    && apt-get update \
-    && ACCEPT_EULA=Y apt-get install mssql-tools unixodbc-dev \
-    && ln -s /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd \
-    && ln -s /opt/mssql-tools/bin/bcp /usr/bin/bcp
+  && curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/msprod.list \
+  && apt-get update \
+  && ACCEPT_EULA=Y apt-get install mssql-tools unixodbc-dev \
+  && ln -s /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd \
+  && ln -s /opt/mssql-tools/bin/bcp /usr/bin/bcp
 
 WORKDIR /azp
 
