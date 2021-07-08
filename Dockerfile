@@ -19,7 +19,7 @@ RUN apt-get update \
         libicu60 \
         libunwind8 \
         lsb-release \
-	      make \
+        make \
         netcat \
         libssl1.0 \
         apt-transport-https \
@@ -28,7 +28,8 @@ RUN apt-get update \
         wget \
         unzip \
         zip \
-        gnupg
+        gnupg \
+        python3-venv
 
 ENV AZ_VERSION 2.13.0-1~bionic
 
